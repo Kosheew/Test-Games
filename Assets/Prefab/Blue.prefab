@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1697350922236801968}
   - component: {fileID: 6052488127045883942}
   - component: {fileID: 3865120493669947691}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7191404216623599129}
   - component: {fileID: 1344159979553632020}
   - component: {fileID: 4454522440297848171}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: TextHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2703326434729603610}
   - component: {fileID: 7543486450091144145}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HpBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 7983574802406529924}
   - component: {fileID: 1798334731335667162}
   - component: {fileID: 3758838501898490313}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,9 +336,9 @@ GameObject:
   - component: {fileID: 5702668740991792019}
   - component: {fileID: 2797446216012069144}
   - component: {fileID: 5015412678659965387}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Blue
-  m_TagString: Enemy
+  m_TagString: EnemyBlue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 4865376634070718408}
   - component: {fileID: 6305807080993925232}
   - component: {fileID: 429971508093414575}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593369627150234955}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 497634051635285060}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

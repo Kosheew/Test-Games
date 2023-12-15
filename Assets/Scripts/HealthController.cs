@@ -5,12 +5,11 @@ public class HealthController : MonoBehaviour
 {
     [Header("Stats Objects")]
     [SerializeField] private Stats objectStats;
-    [SerializeField] private Slider slidertHealth;
-    [SerializeField] private Text HealthNow;
+    public Slider slidertHealth;
+    public Text HealthNow;
 
     public int health { get; set; }
     public int damage { get; set; }
-
 
     public void Initial()
     {
@@ -21,7 +20,7 @@ public class HealthController : MonoBehaviour
         UpdateText();
     }
 
-    private void UpdateText()
+    public void UpdateText()
     {
         slidertHealth.value = health;
         HealthNow.text = $"{health} / {slidertHealth.maxValue}";

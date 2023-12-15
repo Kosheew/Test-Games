@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Movement : HealthController
@@ -11,16 +12,22 @@ public class Movement : HealthController
     [Header("Objects Move")]
     [SerializeField] private Joystick joystickLeft;
     [SerializeField] private Joystick joystickRight;
-    [SerializeField] private int numberOfRays = 60;
-    [SerializeField] private float visionRange = 2f;
-    [SerializeField] private float rotationSpeed = 50f;
+    private float rotationSpeed = 50f;
+
     public int powerUlt { get; set; }
     public bool teleportate { get; set; }
     private Rigidbody rb;
     private float speed = 2.5f;
-
+    private int currentHealth;
+    private int MaxHealth;
     private void Awake()
     {
+        MaxHealth = health;
+        Initial();
+        powerUlt = 50;
+        UpdateTextUlt();
+        rb = GetComponent<Rigidbody>();
+        SceneManager.sceneLoaded += OnSceneLoaded;
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -31,32 +38,36 @@ public class Movement : HealthController
             DontDestroyOnLoad(this.gameObject);
         }
     }
-    void Start()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Initial();
-        powerUlt = 50;
-        UpdateTextUlt();      
-        rb = GetComponent<Rigidbody>();
+        InitializeDependencies();
     }
+
+
     void Update()
     {
         Move();
       //  RotateCharacter();
       //  MoveCharacter();
+
     }
 
     public void UpdateTextUlt()
     {
-        
-        sliderUlt.value = powerUlt;
-        textUlt.text = $"{powerUlt} / 100";
+        if (powerUlt <= 0) powerUlt = 0;
+        else if(powerUlt >= 100) powerUlt = 100;
+        if (powerUlt <= 100 || powerUlt >= 0)
+        {
+            sliderUlt.value = powerUlt;
+            textUlt.text = $"{powerUlt} / 100";
+        }
+
     } 
     private void Move()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        // Rotate the character based on A and D keys
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.down * rotationSpeed * Time.deltaTime);
@@ -66,10 +77,7 @@ public class Movement : HealthController
             transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         }
 
-        // Calculate the movement direction after rotation
         Vector3 moveDirection = transform.forward * verticalInput;
-
-        // Apply velocity to the Rigidbody
         rb.velocity = moveDirection * speed;
     }
 
@@ -108,21 +116,59 @@ public class Movement : HealthController
         {
             teleportate = true;
             float radius = 4.75f;
-            // Генерація випадкового кута у радіанах
             float randomAngle = Random.Range(0f, 2f * Mathf.PI);
 
-            // Обчислення координат за полярними координатами
             float randomX = radius * Mathf.Cos(randomAngle);
             float randomZ = radius * Mathf.Sin(randomAngle);
 
-            // Для Y можна вибрати конкретне значення або залишити його як є, залежно від ваших потреб
-            float yValue = 0.2f; // Наприклад, висота позиції
+            float yValue = 0.2f; 
 
             Vector3 randomPosition = new Vector3(randomX, yValue, randomZ);
             transform.position = randomPosition;
         }
         
     }
+    public void ActivateUltimate()
+    {
+        if (powerUlt >= 100)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("EnemyRed");
+            foreach (GameObject enemy in enemies)
+            {
+                Destroy(enemy); 
+            }
+            GameObject[] enemies2 = GameObject.FindGameObjectsWithTag("EnemyBlue");
+            foreach (GameObject enemy in enemies2)
+            {
+                Destroy(enemy); 
+            }
+            powerUlt = 0;
+            UpdateTextUlt();         
+        }
+    }
+    private void InitializeDependencies()
+    {
+        textUlt = GameObject.FindWithTag("TextUltTag").GetComponent<Text>();
+        sliderUlt = GameObject.FindWithTag("SliderUltTag").GetComponent<Slider>();
+        HealthNow = GameObject.FindWithTag("TextHealtTag").GetComponent<Text>();
+        slidertHealth = GameObject.FindWithTag("SliderHealtTag").GetComponent<Slider>();
+        joystickLeft = GameObject.FindWithTag("RightJoystic").GetComponent<Joystick>();
+        joystickRight = GameObject.FindWithTag("LeftJoystic").GetComponent<Joystick>();
 
+        UpdateTextUlt(); 
+    }
+
+    public void RestoreHalfHealth()
+    {
+        currentHealth += MaxHealth / 2;
+        health += currentHealth;
+        if (health >= 100) health = 100;
+        UpdateText();
+    }
+    private void OnDestroy()
+    {
+        if (instance == this) instance = null;
+        SceneManager.sceneLoaded -= OnSceneLoaded;   
+    }
 }
 

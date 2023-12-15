@@ -27,12 +27,12 @@ public class BlueEnemyController : HealthController
     {
         StartAttack();
     }
+
     private void StartAttack()
     {
         destinationSetter.enabled = true;
 
         destinationSetter.target = player;
-       // transform.LookAt(player);
 
         attackTimer -= Time.deltaTime;
         if (AIPath.reachedEndOfPath && attackTimer <= 0f)
@@ -41,9 +41,7 @@ public class BlueEnemyController : HealthController
             Vector3 spawnPosition = new Vector3 (transform.position.x, transform.position.y, transform.position.z + 0.22f);
             GameObject projectible = Instantiate(projectilePrefab, spawnPosition, Quaternion.identity);
             Vector3 direction = player.position;
-            Debug.Log(direction);
-            /*projectible.GetComponent<Bullet>().damage = damage;
-            projectible.GetComponent<Bullet>().SetDirection(direction);*/
+
             Bullet bullet = projectible.GetComponent<Bullet>();
             if (bullet != null)
             {
@@ -55,4 +53,5 @@ public class BlueEnemyController : HealthController
             attackTimer = attackInterval;
         }
     }
+
 }

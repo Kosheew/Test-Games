@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnController : MonoBehaviour
@@ -10,8 +9,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private Transform spawnObject;
 
     private int counterRedEnemy = 1;
-
-    public int spawnCount = 0;
+    private int spawnCount = 0;
 
     void Start()
     {

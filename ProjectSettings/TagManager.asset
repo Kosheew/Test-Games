@@ -7,6 +7,14 @@ TagManager:
   - Zone
   - Bullet
   - Enemy
+  - EnemyBlue
+  - EnemyRed
+  - TextUltTag
+  - SliderUltTag
+  - TextHealtTag
+  - SliderHealtTag
+  - LeftJoystic
+  - RightJoystic
   layers:
   - Default
   - TransparentFX
@@ -15,7 +23,7 @@ TagManager:
   - Water
   - UI
   - Obstacle
-  - 
+  - Enemy
   - 
   - 
   - 

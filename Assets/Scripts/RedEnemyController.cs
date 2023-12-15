@@ -7,13 +7,12 @@ public class RedEnemyController : HealthController
     [SerializeField] private float flyingHeight = 2f;
     [SerializeField] private float freezeTime = 1f;
     [SerializeField] private float speed = 1f;
-   // [SerializeField] private int damage = 15;
-
-    private bool isFrozen = false;
     
+    private bool isFrozen = false; 
     private Transform player;
     private AIDestinationSetter destinationSetter;
     private AIPath AIPath;
+
     void Start()
     {
         Movement movement = Movement.instance;
@@ -41,10 +40,8 @@ public class RedEnemyController : HealthController
         {
             // Deal damage to the player
             player.GetComponent<HealthController>().TakeDamage(damage);
-
-            // Destroy the enemy
             Destroy(gameObject);
+
         }
     }
 }
-

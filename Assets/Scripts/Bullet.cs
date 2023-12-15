@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     {
         Movement movement = Movement.instance;
         player = movement.gameObject;
-        Destroy(gameObject, 2.5f);
+        Destroy(gameObject, 1f);
     }
     private Vector3 direction;
     public void SetDirection(Vector3 newDirection)
@@ -23,17 +23,11 @@ public class Bullet : MonoBehaviour
         {
             direction = player.transform.position;
             transform.position = Vector3.Lerp(transform.position, direction, 5f * Time.deltaTime);
-        }
-          
-     
+        }         
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            collision.gameObject.GetComponent<HealthController>().TakeDamage(damage);
-        }
         if (collision.gameObject.CompareTag("Player"))
         {
             Movement movementScript = collision.gameObject.GetComponent<Movement>();
