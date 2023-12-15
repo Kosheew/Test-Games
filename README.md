@@ -1,1 +1,1 @@
-# A* Pathfindibg
+# A* Pathfinding
